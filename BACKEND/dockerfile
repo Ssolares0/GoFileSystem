@@ -6,6 +6,9 @@ COPY . .
 
 RUN go mod download
 
+RUN apk update 
+RUN apk add --no-cache graphviz
+
 
 EXPOSE 3000
 

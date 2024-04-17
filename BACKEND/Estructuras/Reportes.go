@@ -115,7 +115,7 @@ func ReporteMBR(id string, path string, name string) {
 	//pasar astring
 	letter := string(primerCaracter)
 	//Abrir el disco A
-	archivo, err := os.Open("MIA/P1/" + letter + ".dsk")
+	archivo, err := os.Open("./MIA/" + letter + ".dsk")
 	if err != nil {
 		fmt.Println("Error al abrir el disco: ", err)
 		return
@@ -560,7 +560,7 @@ func ReporteEBR(id string, path string, name string) {
 	//pasar astring
 	letter := string(primerCaracter)
 	//Abrir el disco A
-	archivo, err := os.Open("MIA/P1/" + letter + ".dsk")
+	archivo, err := os.Open("./MIA/" + letter + ".dsk")
 	if err != nil {
 		fmt.Println("Error al abrir el disco: ", err)
 		return
@@ -865,7 +865,7 @@ func ReporteDisk(name string, path string, id string) {
 	letter := string(primerCaracter)
 
 	//Abrir el disco A
-	archivo, err := os.Open("MIA/P1/" + letter + ".dsk")
+	archivo, err := os.Open("./MIA/" + letter + ".dsk")
 	if err != nil {
 		fmt.Println("Error al abrir el disco: ", err)
 		return
@@ -1174,7 +1174,7 @@ func ReporteInode(id string, path string, name string) {
 
 	//Abrir el disco A
 
-	archivo, err := os.Open("MIA/P1/" + string(primerCaracter) + ".dsk")
+	archivo, err := os.Open("./MIA/" + string(primerCaracter) + ".dsk")
 	if err != nil {
 		fmt.Println("Error al abrir el disco: ", err)
 		return
@@ -1292,7 +1292,7 @@ func ReporteBlock(id string, path string, name string) {
 
 	//Abrir el disco A
 
-	archivo, err := os.Open("MIA/P1/" + string(primerCaracter) + ".dsk")
+	archivo, err := os.Open("./MIA/" + string(primerCaracter) + ".dsk")
 	if err != nil {
 		fmt.Println("Error al abrir el disco: ", err)
 		return
@@ -1439,7 +1439,7 @@ func ReporteBitmapInode(id string, path string, name string) {
 
 	//fmt.Println("El indice del mount es: ", MountActual)
 
-	archivo, err := os.Open("MIA/P1/" + string(primerCaracter) + ".dsk")
+	archivo, err := os.Open("./MIA/" + string(primerCaracter) + ".dsk")
 	if err != nil {
 		fmt.Println("Error al abrir el disco: ", err)
 		return
@@ -1535,7 +1535,7 @@ func ReporteBitmapBlock(id string, path string, name string) {
 
 	//fmt.Println("El indice del mount es: ", MountActual)
 
-	archivo, err := os.Open("MIA/P1/" + string(primerCaracter) + ".dsk")
+	archivo, err := os.Open("./MIA/" + string(primerCaracter) + ".dsk")
 	if err != nil {
 		fmt.Println("Error al abrir el disco: ", err)
 		return
@@ -1629,7 +1629,7 @@ func ReporteTree(id string, path string, name string) {
 	}
 	MountActual := MountList[partition]
 
-	archivo, err := os.Open("MIA/P1/" + string(primerCaracter) + ".dsk")
+	archivo, err := os.Open("./MIA/" + string(primerCaracter) + ".dsk")
 	if err != nil {
 		fmt.Println("Error al abrir el disco: ", err)
 		return
@@ -1797,7 +1797,7 @@ func ReporteSuperBlock(id string, path string, name string) {
 	}
 	MountActual := MountList[partition]
 
-	archivo, err := os.Open("MIA/P1/" + string(primerCaracter) + ".dsk")
+	archivo, err := os.Open("./MIA/" + string(primerCaracter) + ".dsk")
 	if err != nil {
 		fmt.Println("Error al abrir el disco: ", err)
 		return
@@ -1930,7 +1930,7 @@ func ReporteJournaling(id string, path string, name string) {
 	}
 	MountActual := MountList[partition]
 
-	archivo, err := os.Open("MIA/P1/" + string(primerCaracter) + ".dsk")
+	archivo, err := os.Open("./MIA/" + string(primerCaracter) + ".dsk")
 	if err != nil {
 		fmt.Println("Error al abrir el disco: ", err)
 		return
