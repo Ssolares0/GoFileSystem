@@ -26,8 +26,8 @@ func main() {
 	router.HandleFunc("/analizador", analizador).Methods("POST")
 
 	handler := allowCORS(router)
-	fmt.Println("Servidor corriendo en http://localhost:3000")
-	log.Fatal(http.ListenAndServe(":3000", handler))
+	fmt.Println("Servidor corriendo en http://localhost:3001")
+	log.Fatal(http.ListenAndServe(":3001", handler))
 }
 
 func allowCORS(handler http.Handler) http.Handler {
