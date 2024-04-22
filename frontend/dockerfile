@@ -1,0 +1,20 @@
+# Utiliza una versión específica de node alpine
+FROM node:14-alpine
+
+# Establece el directorio de trabajo
+WORKDIR /app
+
+# Copia los archivos de dependencias
+COPY package.json package-lock.json ./
+
+# Instala dependencias
+RUN npm install
+
+# Copia el resto del código fuente
+COPY . .
+
+# Expone el puerto (por defecto el puerto de React es 3000)
+EXPOSE 5000
+
+# Comando para ejecutar la aplicación
+CMD ["npm", "start"]

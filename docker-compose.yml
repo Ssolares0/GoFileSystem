@@ -10,6 +10,15 @@ services:
     networks:
       - default1
 
+  frontend:
+    container_name: frontend
+    restart: always
+    build: ./frontend
+    ports:
+      - "4000:4000"
+    networks:
+      - default1
+
   
 
 networks:
