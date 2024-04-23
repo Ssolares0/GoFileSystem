@@ -1,0 +1,14 @@
+/* Estilo para el contenedor que centra todo */
+.container {
+    display: flex;           /* Usa Flexbox */
+    flex-direction: column;  /* Orientación vertical */
+    align-items: center;     /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente */
+    height: 100vh;           /* Altura completa de la ventana */
+    padding: 20px;           /* Espaciado interno */
+}
+
+/* Espaciado adicional entre los botones */
+.button-container {
+    margin-top: 20px; /* Espacio encima de los botones */
+}
