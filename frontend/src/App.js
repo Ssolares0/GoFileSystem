@@ -1,6 +1,9 @@
 import React from 'react';
 import {Home} from './components/home.js';
 import {Screen1} from './components/screen1.js';
+import {Screen2} from './components/screen2.js';
+
+import './css/screen1.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
 function App() {
@@ -9,6 +12,8 @@ function App() {
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/screen1" element={<Screen1 />} />
+        <Route path="/screen2" element={<Screen2 />} />
+
 
       </Routes>  
     </Router>

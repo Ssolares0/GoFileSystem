@@ -1,14 +1,44 @@
-/* Estilo para el contenedor que centra todo */
+/* Estilos para el contenedor principal */
 .container {
-    display: flex;           /* Usa Flexbox */
-    flex-direction: column;  /* Orientación vertical */
-    align-items: center;     /* Centra horizontalmente */
+    display: grid;
+    grid-template-columns: 1fr auto; /* Auto para el sidebar y 1fr para el resto */
+    grid-template-rows: 1fr auto; /* 1fr para el área de texto y auto para los botones */
+    height: 100vh;
+    background-color: #868686;
+  }
+  
+  /* El Sidebar ahora será una parte de la grid */
+  .sidebar {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  
+  /* Área del formulario centrada */
+  .form-area {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
     justify-content: center; /* Centra verticalmente */
-    height: 100vh;           /* Altura completa de la ventana */
-    padding: 20px;           /* Espaciado interno */
-}
-
-/* Espaciado adicional entre los botones */
-.button-container {
-    margin-top: 20px; /* Espacio encima de los botones */
-}
+    align-items: center; /* Centra horizontalmente */
+  }
+  
+  /* Botones centrados debajo del área de texto */
+  .buttons {
+    grid-column: 1;
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    padding: 20px 0; /* Espacio arriba y abajo de los botones */
+  }
+  /* Estilos para TextArea ampliado */
+/* Estilos para TextArea ampliado */
+.textarea-expandida {
+    width: 400px;  /* Ancho fijo */
+    height: 400px; /* Altura fija igual al ancho */
+    /* Ajusta el margen según sea necesario */
+    margin: auto; /* Esto centrará el TextArea en su contenedor si es posible */
+    
+  }
+  
+  
+  
+  

@@ -1,4 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse ,faFloppyDisk,faImage} from '@fortawesome/free-solid-svg-icons';
 import {
   SidebarPusher,
   SidebarPushable,
@@ -22,23 +25,23 @@ const SidebarExampleVisible = () => (
       visible
       width='thin'
     >
-      <MenuItem as='a'>
-        <Icon name='home' />
+      <MenuItem   as={Link} to="/home">
+        <FontAwesomeIcon icon={faHouse} />
         Home
       </MenuItem>
-      <MenuItem as='a'>
-        <Icon name='gamepad' />
-        Games
+      <MenuItem as={Link} to="/screen2">
+       <FontAwesomeIcon icon={faFloppyDisk} />
+        File System
       </MenuItem>
       <MenuItem as='a'>
-        <Icon name='camera' />
-        Channels
+       <FontAwesomeIcon icon={faImage} />
+        Reportes
       </MenuItem>
     </Sidebar>
 
     <SidebarPusher>
       <Segment basic>
-        <Header as='h3'>Application Content</Header>
+        <Header as='h3'>Application </Header>
         <Image src='/images/wireframe/paragraph.png' />
       </Segment>
     </SidebarPusher>
