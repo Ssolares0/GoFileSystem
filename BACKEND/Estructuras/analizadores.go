@@ -198,17 +198,14 @@ func Analyze_Rmdisk(list_tokens []string) {
 
 	if tokens[0] == "-driveletter" {
 		//preguntamos si quiere borra el disco
-		if Confirmacion("Desea borrar el disco") {
-			fmt.Println("borrando disco")
-			nombreArchivo := "MIA/P1/" + tokens[1] + ".dsk" // El nombre o ruta absoluta del archivo
-			err := os.Remove(nombreArchivo)
-			if err != nil {
-				fmt.Printf("Error eliminando el disco: %v\n", err)
-			} else {
-				fmt.Println("Eliminado correctamente")
-			}
+
+		fmt.Println("borrando disco")
+		nombreArchivo := "MIA/P1/" + tokens[1] + ".dsk" // El nombre o ruta absoluta del archivo
+		err := os.Remove(nombreArchivo)
+		if err != nil {
+			fmt.Printf("Error eliminando el disco: %v\n", err)
 		} else {
-			fmt.Println("No se elimino el disco")
+			fmt.Println("Disco Eliminado correctamente")
 		}
 
 	} else {
@@ -1035,183 +1032,181 @@ func CreateFdisk(size_int int, unit string, fit string, drive string, name strin
 
 		}
 		//verificamos si quiere eliminar
-		if Confirmacion("Esta seguro que desea eliminar la particion") {
 
-			//eliminamos la particion
+		//eliminamos la particion
+		var indicePart int
+		if strings.Contains(string(disk.MBR_PART1.PART_NAME[:]), name) {
+			indicePart = 1
+		}
+		if strings.Contains(string(disk.MBR_PART2.PART_NAME[:]), name) {
+			indicePart = 2
+		}
+		if strings.Contains(string(disk.MBR_PART3.PART_NAME[:]), name) {
+			indicePart = 3
+		}
+		if strings.Contains(string(disk.MBR_PART4.PART_NAME[:]), name) {
+			indicePart = 4
+		}
+		if indicePart != 0 {
+			var particionEliminar PARTITIONS
+			//var particion PARTITIONS
+			if indicePart == 1 {
+				particionEliminar = disk.MBR_PART1
+				disk.MBR_PART1.PART_STATUS = [1]byte{'0'}
+				disk.MBR_PART1.PART_TYPE = [1]byte{'0'}
+				disk.MBR_PART1.PART_FIT = [1]byte{'0'}
+				disk.MBR_PART1.PART_START = 0
+				disk.MBR_PART1.PART_SIZE = 0
+				disk.MBR_PART1.PART_NAME = [16]byte{'~', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'}
+				disk.MBR_PART1.PART_ID = [4]byte{'0', '0', '0', '0'}
+				file.Seek(particionEliminar.PART_START, 0)
+				var vacio byte = 0
+				for i := 0; i < int(particionEliminar.PART_SIZE); i++ {
+					binary.Write(file, binary.LittleEndian, &vacio)
+				}
+				file.Seek(0, 0)
+				binary.Write(file, binary.LittleEndian, &disk)
+				fmt.Println("Se elimino la particion con exito!!!")
+			} else if indicePart == 2 {
+				particionEliminar = disk.MBR_PART2
+				disk.MBR_PART2.PART_STATUS = [1]byte{'0'}
+				disk.MBR_PART2.PART_TYPE = [1]byte{'0'}
+				disk.MBR_PART2.PART_FIT = [1]byte{'0'}
+				disk.MBR_PART2.PART_START = 0
+				disk.MBR_PART2.PART_SIZE = 0
+				disk.MBR_PART2.PART_NAME = [16]byte{'~', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'}
+				disk.MBR_PART2.PART_ID = [4]byte{'0', '0', '0', '0'}
+				file.Seek(particionEliminar.PART_START, 0)
+				var vacio byte = 0
+				for i := 0; i < int(particionEliminar.PART_SIZE); i++ {
+					binary.Write(file, binary.LittleEndian, &vacio)
+				}
+				file.Seek(0, 0)
+				binary.Write(file, binary.LittleEndian, &disk)
+				fmt.Println("Se elimino la particion con exito!!!")
+
+			} else if indicePart == 3 {
+				particionEliminar = disk.MBR_PART3
+				disk.MBR_PART3.PART_STATUS = [1]byte{'0'}
+				disk.MBR_PART3.PART_TYPE = [1]byte{'0'}
+				disk.MBR_PART3.PART_FIT = [1]byte{'0'}
+				disk.MBR_PART3.PART_START = 0
+				disk.MBR_PART3.PART_SIZE = 0
+				disk.MBR_PART3.PART_NAME = [16]byte{'~', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'}
+				disk.MBR_PART3.PART_ID = [4]byte{'0', '0', '0', '0'}
+				file.Seek(particionEliminar.PART_START, 0)
+				var vacio byte = 0
+				for i := 0; i < int(particionEliminar.PART_SIZE); i++ {
+					binary.Write(file, binary.LittleEndian, &vacio)
+				}
+				file.Seek(0, 0)
+				binary.Write(file, binary.LittleEndian, &disk)
+				fmt.Println("Se elimino la particion con exito!!!")
+
+			} else if indicePart == 4 {
+				particionEliminar = disk.MBR_PART4
+				disk.MBR_PART4.PART_STATUS = [1]byte{'0'}
+				disk.MBR_PART4.PART_TYPE = [1]byte{'0'}
+				disk.MBR_PART4.PART_FIT = [1]byte{'0'}
+				disk.MBR_PART4.PART_START = 0
+				disk.MBR_PART4.PART_SIZE = 0
+				disk.MBR_PART4.PART_NAME = [16]byte{'~', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'}
+				file.Seek(particionEliminar.PART_START, 0)
+				var vacio byte = 0
+				for i := 0; i < int(particionEliminar.PART_SIZE); i++ {
+					binary.Write(file, binary.LittleEndian, &vacio)
+				}
+				file.Seek(0, 0)
+				binary.Write(file, binary.LittleEndian, &disk)
+				fmt.Println("Se elimino la particion con exito!!!")
+			}
+
+		} else {
+			var partiticionext PARTITIONS
 			var indicePart int
-			if strings.Contains(string(disk.MBR_PART1.PART_NAME[:]), name) {
+			if disk.MBR_PART1.PART_TYPE == [1]byte{'E'} {
+				partiticionext = disk.MBR_PART1
 				indicePart = 1
-			}
-			if strings.Contains(string(disk.MBR_PART2.PART_NAME[:]), name) {
+			} else if disk.MBR_PART2.PART_TYPE == [1]byte{'E'} {
+				partiticionext = disk.MBR_PART2
 				indicePart = 2
-			}
-			if strings.Contains(string(disk.MBR_PART3.PART_NAME[:]), name) {
+			} else if disk.MBR_PART3.PART_TYPE == [1]byte{'E'} {
+				partiticionext = disk.MBR_PART3
 				indicePart = 3
-			}
-			if strings.Contains(string(disk.MBR_PART4.PART_NAME[:]), name) {
+			} else if disk.MBR_PART4.PART_TYPE == [1]byte{'E'} {
+				partiticionext = disk.MBR_PART4
 				indicePart = 4
 			}
-			if indicePart != 0 {
-				var particionEliminar PARTITIONS
-				//var particion PARTITIONS
-				if indicePart == 1 {
-					particionEliminar = disk.MBR_PART1
-					disk.MBR_PART1.PART_STATUS = [1]byte{'0'}
-					disk.MBR_PART1.PART_TYPE = [1]byte{'0'}
-					disk.MBR_PART1.PART_FIT = [1]byte{'0'}
-					disk.MBR_PART1.PART_START = 0
-					disk.MBR_PART1.PART_SIZE = 0
-					disk.MBR_PART1.PART_NAME = [16]byte{'~', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'}
-					disk.MBR_PART1.PART_ID = [4]byte{'0', '0', '0', '0'}
-					file.Seek(particionEliminar.PART_START, 0)
-					var vacio byte = 0
-					for i := 0; i < int(particionEliminar.PART_SIZE); i++ {
-						binary.Write(file, binary.LittleEndian, &vacio)
-					}
-					file.Seek(0, 0)
-					binary.Write(file, binary.LittleEndian, &disk)
-					fmt.Println("Se elimino la particion con exito!!!")
-				} else if indicePart == 2 {
-					particionEliminar = disk.MBR_PART2
-					disk.MBR_PART2.PART_STATUS = [1]byte{'0'}
-					disk.MBR_PART2.PART_TYPE = [1]byte{'0'}
-					disk.MBR_PART2.PART_FIT = [1]byte{'0'}
-					disk.MBR_PART2.PART_START = 0
-					disk.MBR_PART2.PART_SIZE = 0
-					disk.MBR_PART2.PART_NAME = [16]byte{'~', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'}
-					disk.MBR_PART2.PART_ID = [4]byte{'0', '0', '0', '0'}
-					file.Seek(particionEliminar.PART_START, 0)
-					var vacio byte = 0
-					for i := 0; i < int(particionEliminar.PART_SIZE); i++ {
-						binary.Write(file, binary.LittleEndian, &vacio)
-					}
-					file.Seek(0, 0)
-					binary.Write(file, binary.LittleEndian, &disk)
-					fmt.Println("Se elimino la particion con exito!!!")
-
-				} else if indicePart == 3 {
-					particionEliminar = disk.MBR_PART3
-					disk.MBR_PART3.PART_STATUS = [1]byte{'0'}
-					disk.MBR_PART3.PART_TYPE = [1]byte{'0'}
-					disk.MBR_PART3.PART_FIT = [1]byte{'0'}
-					disk.MBR_PART3.PART_START = 0
-					disk.MBR_PART3.PART_SIZE = 0
-					disk.MBR_PART3.PART_NAME = [16]byte{'~', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'}
-					disk.MBR_PART3.PART_ID = [4]byte{'0', '0', '0', '0'}
-					file.Seek(particionEliminar.PART_START, 0)
-					var vacio byte = 0
-					for i := 0; i < int(particionEliminar.PART_SIZE); i++ {
-						binary.Write(file, binary.LittleEndian, &vacio)
-					}
-					file.Seek(0, 0)
-					binary.Write(file, binary.LittleEndian, &disk)
-					fmt.Println("Se elimino la particion con exito!!!")
-
-				} else if indicePart == 4 {
-					particionEliminar = disk.MBR_PART4
-					disk.MBR_PART4.PART_STATUS = [1]byte{'0'}
-					disk.MBR_PART4.PART_TYPE = [1]byte{'0'}
-					disk.MBR_PART4.PART_FIT = [1]byte{'0'}
-					disk.MBR_PART4.PART_START = 0
-					disk.MBR_PART4.PART_SIZE = 0
-					disk.MBR_PART4.PART_NAME = [16]byte{'~', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'}
-					file.Seek(particionEliminar.PART_START, 0)
-					var vacio byte = 0
-					for i := 0; i < int(particionEliminar.PART_SIZE); i++ {
-						binary.Write(file, binary.LittleEndian, &vacio)
-					}
-					file.Seek(0, 0)
-					binary.Write(file, binary.LittleEndian, &disk)
-					fmt.Println("Se elimino la particion con exito!!!")
-				}
-
-			} else {
-				var partiticionext PARTITIONS
-				var indicePart int
-				if disk.MBR_PART1.PART_TYPE == [1]byte{'E'} {
-					partiticionext = disk.MBR_PART1
-					indicePart = 1
-				} else if disk.MBR_PART2.PART_TYPE == [1]byte{'E'} {
-					partiticionext = disk.MBR_PART2
-					indicePart = 2
-				} else if disk.MBR_PART3.PART_TYPE == [1]byte{'E'} {
-					partiticionext = disk.MBR_PART3
-					indicePart = 3
-				} else if disk.MBR_PART4.PART_TYPE == [1]byte{'E'} {
-					partiticionext = disk.MBR_PART4
-					indicePart = 4
-				}
-				if indicePart == 0 {
-					fmt.Println("No existe una particion extendida")
+			if indicePart == 0 {
+				fmt.Println("No existe una particion extendida")
+				return
+			}
+			var ebr EBR
+			tempDesp := int(partiticionext.PART_START)
+			boolencontrado := false
+			for {
+				file.Seek(int64(tempDesp), 0)
+				binary.Read(file, binary.LittleEndian, &ebr)
+				if err != nil {
+					fmt.Println("Error al leer el EBR: ", err)
 					return
 				}
-				var ebr EBR
-				tempDesp := int(partiticionext.PART_START)
-				boolencontrado := false
+				if ebr.EBR_SIZE != 0 {
+					if strings.Contains(string(ebr.EBR_NAME[:]), name) {
+						boolencontrado = true
+						break
+					}
+					tempDesp += int(ebr.EBR_SIZE) + binary.Size(EBR{}) + 1
+				} else {
+					break
+				}
+			}
+			if boolencontrado {
+				despaux := tempDesp
+				tempDesp += int(ebr.EBR_SIZE) + binary.Size(EBR{}) + 1
+				file.Seek(int64(tempDesp), 0)
+				err := binary.Read(file, binary.LittleEndian, &ebr)
+				if err != nil {
+					fmt.Println("Error al leer el EBR: ", err)
+					return
+				}
 				for {
+					file.Seek(int64(despaux), 0)
+					err := binary.Write(file, binary.LittleEndian, &ebr)
+					if err != nil {
+						fmt.Println("Error al escribir el EBR: ", err)
+						return
+					}
+					despaux = tempDesp
+					tempDesp += int(ebr.EBR_SIZE) + binary.Size(EBR{}) + 1
 					file.Seek(int64(tempDesp), 0)
-					binary.Read(file, binary.LittleEndian, &ebr)
+					err = binary.Read(file, binary.LittleEndian, &ebr)
 					if err != nil {
 						fmt.Println("Error al leer el EBR: ", err)
 						return
 					}
-					if ebr.EBR_SIZE != 0 {
-						if strings.Contains(string(ebr.EBR_NAME[:]), name) {
-							boolencontrado = true
-							break
-						}
-						tempDesp += int(ebr.EBR_SIZE) + binary.Size(EBR{}) + 1
-					} else {
+					if ebr.EBR_SIZE == 0 {
 						break
 					}
 				}
-				if boolencontrado {
-					despaux := tempDesp
-					tempDesp += int(ebr.EBR_SIZE) + binary.Size(EBR{}) + 1
-					file.Seek(int64(tempDesp), 0)
-					err := binary.Read(file, binary.LittleEndian, &ebr)
+				vacio := byte(0)
+				file.Seek(int64(despaux), 0)
+				for i := 0; i < binary.Size(EBR{}); i++ {
+					err := binary.Write(file, binary.LittleEndian, &vacio)
 					if err != nil {
-						fmt.Println("Error al leer el EBR: ", err)
+						fmt.Println("Error al escribir el EBR: ", err)
 						return
 					}
-					for {
-						file.Seek(int64(despaux), 0)
-						err := binary.Write(file, binary.LittleEndian, &ebr)
-						if err != nil {
-							fmt.Println("Error al escribir el EBR: ", err)
-							return
-						}
-						despaux = tempDesp
-						tempDesp += int(ebr.EBR_SIZE) + binary.Size(EBR{}) + 1
-						file.Seek(int64(tempDesp), 0)
-						err = binary.Read(file, binary.LittleEndian, &ebr)
-						if err != nil {
-							fmt.Println("Error al leer el EBR: ", err)
-							return
-						}
-						if ebr.EBR_SIZE == 0 {
-							break
-						}
-					}
-					vacio := byte(0)
-					file.Seek(int64(despaux), 0)
-					for i := 0; i < binary.Size(EBR{}); i++ {
-						err := binary.Write(file, binary.LittleEndian, &vacio)
-						if err != nil {
-							fmt.Println("Error al escribir el EBR: ", err)
-							return
-						}
-					}
-					fmt.Println("Se elimino la particion con exito!!!")
-					defer file.Close()
-					return
-
-				} else {
-					fmt.Println("No se encontro la particion logica")
-					return
 				}
+				fmt.Println("Se elimino la particion con exito!!!")
+				defer file.Close()
+				return
 
+			} else {
+				fmt.Println("No se encontro la particion logica")
+				return
 			}
+
 		}
 	}
 

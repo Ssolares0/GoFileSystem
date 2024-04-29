@@ -4,6 +4,7 @@ import {Screen1} from './components/screen1.js';
 import {Screen2} from './components/screen2.js';
 
 import './css/screen1.css';
+import './css/screen2.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
 function App() {

@@ -100,3 +100,23 @@ func Open_File(path string) {
 
 	}
 }
+
+func Obtener_Discos(w http.ResponseWriter, r *http.Request) {
+	discos, err := ioutil.ReadDir("./MIA")
+	if err != nil {
+		// Manejar el error, por ejemplo, devolver un código de estado HTTP 500
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	// Crear una lista de nombres de discos
+	nombresDiscos := make([]string, 0, len(discos))
+	for _, disco := range discos {
+		nombresDiscos = append(nombresDiscos, disco.Name())
+	}
+
+	// Establecer el tipo de contenido a JSON
+	w.Header().Set("Content-Type", "application/json")
+
+	// Convertir a JSON y enviar la respuesta
+	json.NewEncoder(w).Encode(nombresDiscos)
+}
