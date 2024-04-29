@@ -5,6 +5,7 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -24,6 +25,7 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", inicio).Methods("GET")
 	router.HandleFunc("/analizador", analizador).Methods("POST")
+	router.HandleFunc("/discos", Obtener_Discos).Methods("GET")
 
 	handler := allowCORS(router)
 	fmt.Println("Servidor corriendo en http://localhost:3001")
@@ -111,6 +113,26 @@ func Obtener_Discos(w http.ResponseWriter, r *http.Request) {
 	// Crear una lista de nombres de discos
 	nombresDiscos := make([]string, 0, len(discos))
 	for _, disco := range discos {
+		nombresDiscos = append(nombresDiscos, disco.Name())
+	}
+
+	// Establecer el tipo de contenido a JSON
+	w.Header().Set("Content-Type", "application/json")
+
+	// Convertir a JSON y enviar la respuesta
+	json.NewEncoder(w).Encode(nombresDiscos)
+}
+
+func Obtener_partitions(w http.ResponseWriter, r *http.Request) {
+	particiones, err := ioutil.ReadDir("./MIA")
+	if err != nil {
+		// Manejar el error, por ejemplo, devolver un código de estado HTTP 500
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	// Crear una lista de nombres de discos
+	nombresDiscos := make([]string, 0, len(particiones))
+	for _, disco := range particiones {
 		nombresDiscos = append(nombresDiscos, disco.Name())
 	}
 

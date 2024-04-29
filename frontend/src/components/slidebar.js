@@ -33,7 +33,7 @@ const SidebarExampleVisible = () => (
        <FontAwesomeIcon icon={faFloppyDisk} />
         File System
       </MenuItem>
-      <MenuItem as='a'>
+      <MenuItem as={Link} to="/reports">
        <FontAwesomeIcon icon={faImage} />
         Reportes
       </MenuItem>

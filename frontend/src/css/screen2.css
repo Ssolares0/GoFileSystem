@@ -6,3 +6,21 @@
     height: 100vh;
     background-color: #868686;
 }
+
+.btn-disco {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0; /* Esto añade un margen arriba y abajo de cada botón */
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+  
+.btn-disco:hover {
+    background-color: #e8e8e8;
+}
+  
+.btn-disco span {
+    margin-left: 0.5rem;
+}

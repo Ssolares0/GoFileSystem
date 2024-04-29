@@ -3,6 +3,7 @@ import SidebarExampleVisible from './slidebar.js';
 import { Form, TextArea,Button } from 'semantic-ui-react'
 
 
+
 export const Screen1 = () => {
     const [text, setText] = useState('');
 
