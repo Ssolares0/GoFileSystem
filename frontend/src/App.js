@@ -7,6 +7,7 @@ import {Reports} from './components/reports.js';
 
 import './css/screen1.css';
 import './css/screen2.css';
+import './css/reports.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
 function App() {

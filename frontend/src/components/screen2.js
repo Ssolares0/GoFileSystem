@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCompactDisc } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'semantic-ui-react'
 import { useNavigate  } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 
 
 export const Screen2 = () => {
@@ -48,6 +48,9 @@ export const Screen2 = () => {
           <span>{nombreDisco}</span>
         </Button>
       ))}
+      <Link to="/screen1"> {/* Cambia "/donde-quiera-regresar" por la ruta a la que quieres que regrese */}
+                    <button className="return-button">Regresar</button>
+                </Link>
         </div>
 
     );

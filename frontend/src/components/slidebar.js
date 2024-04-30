@@ -24,6 +24,7 @@ const SidebarExampleVisible = () => (
       vertical
       visible
       width='thin'
+      direction='right' // Cambia la dirección del sidebar a la derecha
     >
       <MenuItem   as={Link} to="/home">
         <FontAwesomeIcon icon={faHouse} />

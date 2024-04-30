@@ -3,15 +3,16 @@ package main
 import (
 	"BACKEND/Estructuras"
 	"bufio"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
-
-	"github.com/gorilla/mux"
 )
 
 var logeado = false
@@ -26,6 +27,8 @@ func main() {
 	router.HandleFunc("/", inicio).Methods("GET")
 	router.HandleFunc("/analizador", analizador).Methods("POST")
 	router.HandleFunc("/discos", Obtener_Discos).Methods("GET")
+	router.HandleFunc("/particiones", Obtener_partitions).Methods("GET")
+	router.HandleFunc("/reportes", Obtener_Reportes).Methods("GET")
 
 	handler := allowCORS(router)
 	fmt.Println("Servidor corriendo en http://localhost:3001")
@@ -141,4 +144,31 @@ func Obtener_partitions(w http.ResponseWriter, r *http.Request) {
 
 	// Convertir a JSON y enviar la respuesta
 	json.NewEncoder(w).Encode(nombresDiscos)
+}
+
+func Obtener_Reportes(w http.ResponseWriter, r *http.Request) {
+	imageDir := "/Reportes" // Asegúrate de cambiar esto al directorio correcto
+	images, err := ioutil.ReadDir(imageDir)
+	if err != nil {
+		http.Error(w, "Unable to list images", http.StatusInternalServerError)
+		return
+	}
+	var imageList []map[string]string
+	for _, image := range images {
+		if !image.IsDir() {
+			imagePath := filepath.Join(imageDir, image.Name())
+			data, err := ioutil.ReadFile(imagePath)
+			if err != nil {
+				continue // or handle error
+			}
+			base64Data := base64.StdEncoding.EncodeToString(data)
+			imageList = append(imageList, map[string]string{
+				"name": image.Name(),
+				"data": "data:image/jpeg;base64," + base64Data, // Ajusta el MIME type según el tipo de imagen
+			})
+		}
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(imageList)
 }
