@@ -1,0 +1,2 @@
+frontend con bucket s3 : http://miasebastiansolares.s3-website.us-east-2.amazonaws.com/
+backend con ec2 y docker : http://18.117.94.73:3001/

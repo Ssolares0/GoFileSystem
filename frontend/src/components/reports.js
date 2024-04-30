@@ -6,7 +6,7 @@ export const Reports = () => {
     const [selectedImage, setSelectedImage] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:3001/reportes')
+        fetch('http://18.117.94.73:3001/reportes')
             .then(response => response.json())
             .then(data => setImages(data))
             .catch(error => console.error('Error fetching images:', error));

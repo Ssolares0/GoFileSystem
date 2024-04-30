@@ -10,7 +10,7 @@ export const Screen1 = () => {
     const handleChange = async(e) => {
         
         e.preventDefault();
-        await fetch('http://localhost:3001/analizador', {
+        await fetch('http://18.117.94.73:3001/analizador', {
             method: 'POST',
             mode: 'no-cors',
             body: JSON.stringify({

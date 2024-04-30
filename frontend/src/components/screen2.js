@@ -19,7 +19,7 @@ export const Screen2 = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:3001/discos') // Asegúrate de que la URL coincida con tu configuración de Docker y Golang
+        fetch('http://18.117.94.73:3001/discos') // Asegúrate de que la URL coincida con tu configuración de Docker y Golang
             .then(response => {
                 if (response.ok) {
                     return response.json();
